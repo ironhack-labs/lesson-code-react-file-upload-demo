@@ -17,7 +17,7 @@ const PRODUCT_SERVICE = {
   deleteProduct: productId => {
     return new Promise((resolve, reject) => {
       service
-        .delete(`/product/${productId}`)
+        .delete(`/products/${productId}`)
         .then(result => resolve(result.data))
         .catch(error => reject(error));
     });
@@ -33,7 +33,7 @@ const PRODUCT_SERVICE = {
       uploadData.append('inStock', product.inStock);
       uploadData.append('description', product.description);
       service
-        .post('/add-product', uploadData, { withCredentials: true })
+        .post('/products/create', uploadData, { withCredentials: true })
         .then(result => resolve(result))
         .catch(error => reject(error));
     });
@@ -42,7 +42,7 @@ const PRODUCT_SERVICE = {
   updateProduct: (id, product) => {
     return new Promise((resolve, reject) => {
       service
-        .put(`/product/${id}`, product, { withCredentials: true })
+        .put(`/products/${id}`, product, { withCredentials: true })
         .then(result => resolve(result))
         .catch(error => reject(error));
     });
@@ -54,7 +54,7 @@ const PRODUCT_SERVICE = {
       uploadData.append('image', imageFile);
 
       service
-        .patch(`/product/image/${id}`, uploadData, { withCredentials: true })
+        .patch(`/products/image/${id}`, uploadData, { withCredentials: true })
         .then(result => resolve(result))
         .catch(error => reject(error));
     });
@@ -68,7 +68,7 @@ const PRODUCT_SERVICE = {
         uploadData.append('imageArray', images[i]);
       }
       service
-        .patch(`/product/imageArray/${id}`, uploadData, { withCredentials: true })
+        .patch(`/products/imageArray/${id}`, uploadData, { withCredentials: true })
         .then(result => resolve(result))
         .catch(error => reject(error));
     });

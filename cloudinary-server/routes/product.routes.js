@@ -4,7 +4,7 @@ const Product = require('../models/Product.model');
 const uploadCloud = require('../configs/cloudinary-setup');
 
 // Product Main Info
-router.post('/add-product', uploadCloud.single('image'), (req, res, next) => {
+router.post('/products/create', uploadCloud.single('image'), (req, res, next) => {
   const productInputInfo = req.body;
   productInputInfo.image = req.file.path;
 
@@ -21,25 +21,25 @@ router.get('/products', (req, res, next) => {
 });
 
 // Product Details
-router.get('/product/:productId', (req, res, next) => {
+router.get('/products/:productId', (req, res, next) => {
   Product.findById(req.params.productId)
     .then(productFromDB => res.status(200).json(productFromDB))
     .catch(err => req.status(400).json(err));
 });
 
 // Update Product
-router.put('/product/:productId', (req, res, next) => {
+router.put('/products/:productId', (req, res, next) => {
   Product.findByIdAndUpdate(req.params.productId, req.body, { new: true })
     .then(updatedProduct => res.status(200).json(updatedProduct))
     .catch(err => req.status(400).json(err));
 });
 
 // Delete Product
-router.delete('/product/:productId', (req, res, next) => {
+router.delete('/products/:productId', (req, res, next) => {
   Product.findByIdAndDelete(req.params.productId)
     .then(() =>
       res.status(200).json({
-        message: 'Successful Deletion of Product'
+        message: 'Product successfully deleted.'
       })
     )
     .catch(err => req.status(400).json(err));
